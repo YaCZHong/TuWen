@@ -3,14 +3,15 @@ package com.example.tuwen.adapter
 import android.content.Context
 import android.text.Editable
 import android.text.TextUtils
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.tuwen.R
+import com.example.tuwen.Util.SimpleTextWatcher
 import com.example.tuwen.bean.MainRvItemBean
 
 class MainAdapter(private val data: List<MainRvItemBean>, private val context: Context) :
@@ -39,7 +40,8 @@ class MainAdapter(private val data: List<MainRvItemBean>, private val context: C
                     holder.ivImage.visibility = View.GONE
                 }
                 false -> {
-                    holder.ivImage.setImageResource(R.drawable.ic_launcher_background)
+                    Glide.with(holder.ivImage.context).load(data[position].imageUrl)
+                        .into(holder.ivImage)
                     holder.ivImage.visibility = View.VISIBLE
                 }
             }
@@ -55,21 +57,13 @@ class MainAdapter(private val data: List<MainRvItemBean>, private val context: C
             }
         }
 
-        holder.etContent.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
+        holder.etContent.addTextChangedListener(object : SimpleTextWatcher() {
             override fun afterTextChanged(s: Editable?) {
                 data[holder.adapterPosition].content = s.toString()
             }
         })
 
-        holder.etImageSketch.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
+        holder.etImageSketch.addTextChangedListener(object : SimpleTextWatcher() {
             override fun afterTextChanged(s: Editable?) {
                 data[holder.adapterPosition].imageSketch = s.toString()
             }

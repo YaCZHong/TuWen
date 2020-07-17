@@ -30,6 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:background="@null"
+        android:gravity="center"
         android:hint="图片简介"
         android:textSize="11sp" />
 </LinearLayout>
